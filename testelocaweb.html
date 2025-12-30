@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locaweb Teste Moderno</title>
+  <style>
+    /* Seu CSS original (sem alterações) */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0d1b2a, #1e2d45, #32425a);
+      background-size: 400% 400%;
+      animation: bgAnimation 20s ease infinite;
+      color: white;
+      overflow-x: hidden;
+      transition: all 0.3s ease;
+    }
+
+    body.light-mode {
+      background: #f9f9f9;
+      color: #222;
+    }
+
+    body.light-mode .card {
+      background-color: #ffffff;
+    }
+
+    body.light-mode .card p,
+    body.light-mode .hero p {
+      color: #444;
+    }
+
+    body.light-mode .cta-button {
+      background-color: #e1004f;
+      color: white;
+    }
+
+    body.light-mode .cta-button:hover {
+      background-color: #b3003d;
+    }
+
+    body.light-mode footer {
+      background: #eee;
+      color: #555;
+    }
+
+    body.light-mode header {
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #ccc;
+    }
+
+    body.light-mode nav a {
+      color: #222;
+    }
+
+    body.light-mode nav a:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: #e1004f;
+    }
+
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(20, 20, 30, 0.6));
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #e1004f;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 24px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #e1004f;
+    }
+
+    .theme-toggle {
+      margin-left: 24px;
+      padding: 8px 14px;
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    body.light-mode .theme-toggle {
+      border-color: #999;
+      color: #222;
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #ccc;
+      max-width: 600px;
+    }
+
+    .cta-button {
+      margin-top: 30px;
+      padding: 15px 35px;
+      font-size: 16px;
+      background-color: #e1004f;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #b3003d;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 60px 20px;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: #1e2a3a;
+      border-radius: 10px;
+      padding: 30px;
+      width: 300px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card h3 {
+      color: #e1004f;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      background: linear-gradient(to bottom, rgba(16, 24, 32, 0.05), rgba(16, 24, 32, 0.9));
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Conteúdo centralizado para Produtos e Contato */
+    .page-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 0.7s ease-out;
+    }
+
+    .page-center h1 {
+      font-size: 3rem;
+      color: #e1004f;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="logo">loca<span>web</span></div>
+      <nav>
+        <a onclick="mostrarPagina('inicio')">Início</a>
+        <a onclick="mostrarPagina('produtos')">Produtos</a>
+        <a onclick="mostrarPagina('contato')">Contato</a>
+        <button class="theme-toggle" onclick="alternarTema()" id="themeBtn">Modo Escuro</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Conteúdo da página inicial -->
+    <section class="hero" id="inicio">
+      <h1>Isso se trata de um teste</h1>
+      <p>Esta é uma página de demonstração da Locaweb, com interatividade e transições suaves para uma experiência transforrmadora.</p>
+      <button class="cta-button" onclick="toggleCartoes()" id="toggleBtn">Ver Funcionalidades</button>
+    </section>
+
+    <section class="card-container" id="cards">
+      <div class="card">
+        <h3>Hospedagem</h3>
+        <p>Servidores rápidos, confiáveis e seguros para hospedar seu site ou app.</p>
+      </div>
+      <div class="card">
+        <h3>Criação de Sites</h3>
+        <p>Construtor intuitivo para colocar sua ideia no ar em poucos minutos.</p>
+      </div>
+      <div class="card">
+        <h3>Email Profissional</h3>
+        <p>Transmita confiança com um e-mail personalizado com seu domínio.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Locaweb Serviços de Internet S/A — Esta página é apenas um teste.
+  </footer>
+
+  <script>
+    let visivel = false;
+
+    function toggleCartoes() {
+      const cards = document.querySelectorAll('.card');
+      const button = document.getElementById('toggleBtn');
+
+      if (!visivel) {
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('visible');
+          }, index * 300);
+        });
+        button.textContent = "Ocultar Funcionalidades";
+        visivel = true;
+      } else {
+        cards.forEach(card => {
+          card.classList.remove('visible');
+        });
+        button.textContent = "Ver Funcionalidades";
+        visivel = false;
+      }
+    }
+
+    function alternarTema() {
+      const body = document.body;
+      const button = document.getElementById('themeBtn');
+      body.classList.toggle('light-mode');
+      button.textContent = body.classList.contains('light-mode') ? 'Modo Claro' : 'Modo Escuro';
+    }
+
+    // Função para trocar o conteúdo da página no <main>
+    function mostrarPagina(pagina) {
+      const main = document.getElementById('main-content');
+      visivel = false; // reseta estado dos cards
+
+      if (pagina === 'inicio') {
+        main.innerHTML = `
+          <section class="hero" id="inicio">
+            <h1>Isso se trata de um teste</h1>
+            <p>Esta é uma página de demonstração inspirada no visual moderno da Locaweb, com interatividade e transições suaves para uma experiência fluida.</p>
+            <button class="cta-button" onclick="toggleCartoes()" id="toggleBtn">Ver Funcionalidades</button>
+          </section>
+
+          <section class="card-container" id="cards">
+            <div class="card">
+              <h3>Hospedagem</h3>
+              <p>Servidores rápidos, confiáveis e seguros para hospedar seu site ou app.</p>
+            </div>
+            <div class="card">
+              <h3>Criação de Sites</h3>
+              <p>Construtor intuitivo para colocar sua ideia no ar em poucos minutos.</p>
+            </div>
+            <div class="card">
+              <h3>Email Profissional</h3>
+              <p>Transmita confiança com um e-mail personalizado com seu domínio.</p>
+            </div>
+          </section>
+        `;
+      } else if (pagina === 'produtos') {
+        main.innerHTML = `
+          <section class="page-center">
+            <h1>Produtos teste</h1>
+          </section>
+        `;
+      } else if (pagina === 'contato') {
+        main.innerHTML = `
+          <section class="page-center">
+            <h1>Contato teste</h1>
+          </section>
+        `;
+      }
+    }
+
+    // Inicializa com a página "Início"
+    mostrarPagina('inicio');
+  </script>
+
+</body>
+</html>
